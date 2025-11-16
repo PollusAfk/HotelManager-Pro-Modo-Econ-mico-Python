@@ -1,6 +1,5 @@
 from InquirerPy import inquirer
 
-
 def menu():
     opcao_menu = inquirer.select(
         message="\n=== HOTEL MANAGER PRO ===\n",
