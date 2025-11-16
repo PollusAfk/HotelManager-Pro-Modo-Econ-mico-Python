@@ -1,21 +1,8 @@
 from InquirerPy import inquirer
 
 # Função do menu principal, mostra as opções e retorna o que o usuário escolheu
-def menu():
-    opcao_menu = inquirer.select(
-        message="\n=== HOTEL MANAGER PRO ===\n",
-        choices=[
-            "Fazer Check-in",
-            "Fazer Check-out",
-            "Marcar quarto como limpo",
-            "Vizualizar ocupações",
-            "Vizualizar ocupação especifica",
-            "Sair"
-        ]
-    ).execute()
-    return opcao_menu  # retorno da opção escolhida
 
-
+    
 # Função pra iniciar todas as listas do hotel (quartos, status, hóspedes e dias)
 def inicializar_hotel():
     # usando global pra acessar essas listas no programa inteiro
@@ -124,7 +111,7 @@ def vizualizar_ocupacao_especifica(num_quarto, hospedes_quartos, numeros_quartos
     
     # se não estiver ocupado, só mostra o status
     else:
-        print(f"O quarto {num_quarto} se encontra {status_quartos[indice]}")
+        print(f"O quarto {num_quarto}: se encontra {status_quartos[indice]}")
 
 
 # Função pra listar todos os quartos com seus status
@@ -137,3 +124,25 @@ def vizualizar_ocupacoes(hospedes_quartos, numeros_quartos, status_quartos, dias
         # se estiver livre ou sujo, só mostra o status
         else:
             print(f"Quarto {numeros_quartos[i]}: {status_quartos[i]}")
+def menu():
+    global opcao_menu
+    opcao_menu = inquirer.select(
+        message="\n=== HOTEL MANAGER PRO ===\n",
+        choices=[
+            "Fazer Check-in",
+            "Fazer Check-out",
+            "Marcar quarto como limpo",
+            "Vizualizar ocupações",
+            "Vizualizar ocupação especifica",
+            "Sair"
+        ]
+    ).execute()
+    if opcao_menu =="Vizualizar ocupações":
+        vizualizar_ocupacoes(hospedes_quartos, numeros_quartos, status_quartos, dias_estadia)
+    elif opcao_menu == "Vizualizar ocupação especifica":
+        num_quarto = int(input("Qual o número do quarto? "))
+        vizualizar_ocupacao_especifica(num_quarto,hospedes_quartos, numeros_quartos, status_quartos, dias_estadia)
+    return opcao_menu  # retorno da opção escolhida
+
+inicializar_hotel()
+menu()
